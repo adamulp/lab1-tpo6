@@ -15,6 +15,7 @@ public class gestionDeProductos extends javax.swing.JInternalFrame {
      */
     public gestionDeProductos() {
         initComponents();
+        
     }
 
     /**
