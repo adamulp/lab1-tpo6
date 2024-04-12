@@ -4,6 +4,8 @@
  */
 package Vistas;
 
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author Hollmann
@@ -15,8 +17,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-         
-        
+
     }
 
     /**
@@ -43,11 +44,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 688, Short.MAX_VALUE)
+            .addGap(0, 817, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 584, Short.MAX_VALUE)
         );
 
         jAdministracion.setText("Administracion");
@@ -113,23 +114,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jmGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGestionActionPerformed
         GestionDeProductos ventana = new GestionDeProductos();
-        escritorio.removeAll();
-        escritorio.repaint();
-        ventana.setVisible(true);
-        escritorio.add(ventana);
-        escritorio.moveToBack(ventana);
-        
-      
-        
+        dibujarVentana(ventana);
+
+
     }//GEN-LAST:event_jmGestionActionPerformed
 
     private void jmNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNombreActionPerformed
         ConsultaPorNombre ventana = new ConsultaPorNombre();
-        escritorio.removeAll();
-        escritorio.repaint();
-        ventana.setVisible(true);
-        escritorio.add(ventana);
-        escritorio.moveToFront(ventana);
+        dibujarVentana(ventana);
     }//GEN-LAST:event_jmNombreActionPerformed
 
     private void jAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdministracionActionPerformed
@@ -138,20 +130,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jmRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRubroActionPerformed
         ConsultasPorRubro ventana = new ConsultasPorRubro();
-        escritorio.removeAll();
-        escritorio.repaint();
-        ventana.setVisible(true);
-        escritorio.add(ventana);
-        escritorio.moveToFront(ventana);
+        dibujarVentana(ventana);
     }//GEN-LAST:event_jmRubroActionPerformed
 
     private void jmPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrecioActionPerformed
         ConsultaPorPrecio ventana = new ConsultaPorPrecio();
-        escritorio.removeAll();
-        escritorio.repaint();
-        ventana.setVisible(true);
-        escritorio.add(ventana);
-        escritorio.moveToFront(ventana);
+        dibujarVentana(ventana);
     }//GEN-LAST:event_jmPrecioActionPerformed
 
     /**
@@ -196,6 +180,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
     }
 
+    private void dibujarVentana(JInternalFrame ventana) {
+        escritorio.removeAll();
+        escritorio.repaint();
+        ventana.setVisible(true);
+        escritorio.add(ventana);
+        escritorio.moveToFront(ventana);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Consultas;
     private javax.swing.JDesktopPane escritorio;
