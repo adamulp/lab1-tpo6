@@ -8,12 +8,12 @@ package Vistas;
  *
  * @author Hollmann
  */
-public class gestionDeProductos extends javax.swing.JInternalFrame {
+public class GestionDeProductos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form gestionDeProductos
      */
-    public gestionDeProductos() {
+    public GestionDeProductos() {
         initComponents();
         
     }
