@@ -5,7 +5,12 @@
 package vistas;
 
 import entidades.Producto;
+import entidades.Rubro;
+import java.beans.PropertyEditorManager;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +28,8 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     public GestionDeProductos(TreeSet<Producto> productos) {
         this.productos=productos;
         initComponents();
-//        llenarCombo();
+        llenarCombo();
+        limpiarCampos();
 
     }
 
@@ -52,7 +58,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -66,14 +72,22 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Codigo");
 
-        jcRubro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comestibles", "Limpieza", "Perfumeria" }));
-
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Gestion de productos");
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -83,11 +97,17 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         });
 
         btnEliminar.setText("Eliminar");
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lupa.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lupa.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -110,27 +130,26 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, 0)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                                .addComponent(btnSalir))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnGuardar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnEliminar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                                        .addComponent(btnSalir))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(5, 5, 5))
-                                    .addComponent(jtDescripcion, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtPrecio, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtStock, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcRubro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(50, 50, 50)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(5, 5, 5))
+                                            .addComponent(jtDescripcion, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jtPrecio, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jtStock, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jcRubro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(31, 31, 31))))
         );
@@ -143,7 +162,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jtCodigo)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -173,30 +192,213 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int codigo;
+        if(esEntero(jtCodigo.getText())){
+            codigo = Integer.parseInt(jtCodigo.getText());
+        }else {
+            JOptionPane.showMessageDialog(this,
+                    "Ingresar un código del producto ");
+            jtCodigo.requestFocus();
+            return;
+        }
+        Producto producto = getProducto(codigo);
+        if(producto == null){
+            JOptionPane.showMessageDialog(this,
+                    "Producto no encontrado, puedes agregarlo pues.");
+            habilitarCamposDeEntrada();
+            return;
+        }
+        
+        jcRubro.setSelectedItem(producto.getRubro());
+        jtDescripcion.setText(producto.getDescripcion());
+        jtPrecio.setText(producto.getPrecio()+"");
+        jtStock.setText(producto.getStock()+"");
+        
+        
+        deshabilitarCamposDeEntrada();
+        btnEliminar.setEnabled(true);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-//    private void llenarCombo(){
-//        
-//    }
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int codigo;
+        String descripcion;
+        double precio;
+        Rubro rubro;
+        int stock;
+        
+        if(esEntero(jtCodigo.getText())){
+            codigo = Integer.parseInt(jtCodigo.getText());
+        }else {
+        
+            JOptionPane.showMessageDialog(this,
+                    "Ingresá un código del producto");
+            jtCodigo.requestFocus();
+            return;
+        }
+        
+        if(!jtDescripcion.equals("")){
+            descripcion = jtDescripcion.getText();
+        }else{
+            JOptionPane.showMessageDialog(this,
+                    "Ingresá una descripción");
+            jtDescripcion.requestFocus();
+            return;
+        }
+        
+        if(esDecimal(jtPrecio.getText()) ||
+           esEntero(jtPrecio.getText())
+          ){
+            precio = Double.parseDouble(jtPrecio.getText());
+        }else{
+            JOptionPane.showMessageDialog(this,
+                    "Ingresá un precio");
+            jtPrecio.requestFocus();
+            return;
+        }
+        
+        if(jcRubro.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this,
+                    "Tenés que seleccionar un rubro");
+            jcRubro.requestFocus();
+            return;
+        }else{
+            rubro = (Rubro)jcRubro.getSelectedItem();
+        }
+        
+        if(esEntero(jtStock.getText())){
+            stock = Integer.parseInt(jtStock.getText());
+        }else {
+        
+            JOptionPane.showMessageDialog(this,
+                    "Ingresá un valor para el stock del producto");
+            jtStock.requestFocus();
+            return;
+        }
+        
+        if(agregarProducto(new Producto(codigo, descripcion, precio, stock, rubro))){
+            JOptionPane.showMessageDialog(this,
+                    "Producto agregado!");
+            limpiarCampos();
+            return;
+        }
+        
+        JOptionPane.showMessageDialog(this,
+                    "Parece que el producto ya existe u olvidaste llenar algo");
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if(quitarProducto(Integer.parseInt(jtCodigo.getText()))){
+            JOptionPane.showMessageDialog(this,
+                    "El produco se eliminó");
+            limpiarCampos();
+            return;
+        }
+        JOptionPane.showMessageDialog(this,
+                "No se pudo eliminar este producto"
+                );
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void llenarCombo(){
+        Rubro comestible=new Rubro(1,"Comestible");
+        Rubro limpieza=new Rubro(2,"Limpieza");
+        Rubro perfumeria=new Rubro(3,"Perfumeria");
+        
+        jcRubro.addItem(comestible);
+        jcRubro.addItem(limpieza);
+        jcRubro.addItem(perfumeria);
+        
+    }
+    
+    private void limpiarCampos(){
+        jcRubro.setSelectedIndex(-1);
+        jtCodigo.setText("");
+        jtDescripcion.setText("");
+        jtPrecio.setText("");
+        jtStock.setText("");
+        btnEliminar.setEnabled(false);
+        habilitarCamposDeEntrada();
+        auxiliar=null;
+    }
+    
+    private boolean esEntero(String nro){
+    
+        Pattern patron=Pattern.compile("^\\d+$");
+        Matcher m=patron.matcher(nro);
+        return m.matches();
+    }
+
+    private boolean esDecimal(String nro){
+    Pattern patron=Pattern.compile("^\\d+.\\d{1,2}$");
+        Matcher m=patron.matcher(nro);
+        return m.matches();
+        
+    }
+    
+    private void deshabilitarCamposDeEntrada(){
+        jcRubro.setEnabled(false);
+        jtCodigo.setEnabled(false);
+        jtDescripcion.setEnabled(false);
+        jtPrecio.setEnabled(false);
+        jtStock.setEnabled(false);
+    }
+    
+    private void habilitarCamposDeEntrada(){
+        jcRubro.setEnabled(true);
+        jtCodigo.setEnabled(true);
+        jtDescripcion.setEnabled(true);
+        jtPrecio.setEnabled(true);
+        jtStock.setEnabled(true);
+    }
+    
+    private Producto getProducto(int codigo){
+        for(Producto producto:productos){
+            if(codigo==producto.getCodigo()){
+                return producto;
+            }
+        }
+        return null;
+    }
+    
+    private boolean agregarProducto(Producto producto){
+        return productos.add(producto);
+    }
+    
+    private boolean quitarProducto(Producto producto){
+        return productos.remove(producto);
+    }
+    
+    private boolean quitarProducto(int codigo){
+        Producto producto = new Producto();
+        producto = getProducto(codigo);
+        if(producto == null){
+            return false;
+        }
+        return quitarProducto(producto);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JComboBox<String> jcRubro;
+    private javax.swing.JComboBox<Rubro> jcRubro;
     private javax.swing.JTextField jtCodigo;
     private javax.swing.JTextField jtDescripcion;
     private javax.swing.JTextField jtPrecio;
