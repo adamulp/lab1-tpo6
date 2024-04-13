@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Producto.Rubro;
+package entidades;
 
 import java.util.Scanner;
 
@@ -80,13 +80,14 @@ public class Producto implements Comparable<Producto>{
 
     @Override
     public int compareTo(Producto p2){
-        if(this.codigo == p2.codigo){
-            return 0;
-        }else if(this.codigo > codigo){
-            return 1;
-        }else{
-            return -1;
-        }
+        return this.codigo - p2.codigo;
+//        if(this.codigo == p2.codigo){
+//            return 0;
+//        }else if(this.codigo > codigo){
+//            return 1;
+//        }else{
+//            return -1;
+//        }
     }
 
     @Override
