@@ -4,19 +4,25 @@
  */
 package vistas;
 
+import entidades.Producto;
 import entidades.Rubro;
+import java.util.TreeSet;
 
 /**
  *
  * @author Hollmann
  */
 public class ConsultasPorRubro extends javax.swing.JInternalFrame {
+    private TreeSet<Producto> productos;
 
     /**
      * Creates new form consultasPorRubro
      */
-    public ConsultasPorRubro() {
+    public ConsultasPorRubro(TreeSet<Producto> productos) {
+        this.productos=productos;
         initComponents();
+//        llenarCombo();
+//        armarCabecera();
     }
 
     /**
@@ -92,7 +98,12 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+//    private void llenarCombo(){
+//        
+//    }
+//    private void armarCabecera(){
+//        
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

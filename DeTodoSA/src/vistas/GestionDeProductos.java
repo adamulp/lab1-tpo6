@@ -4,18 +4,27 @@
  */
 package vistas;
 
+import entidades.Producto;
+import java.util.TreeSet;
+
 /**
  *
  * @author Hollmann
  */
 public class GestionDeProductos extends javax.swing.JInternalFrame {
 
+    private TreeSet<Producto> productos;
+    private Producto auxiliar;
+
     /**
      * Creates new form gestionDeProductos
+     * @param productos
      */
-    public GestionDeProductos() {
+    public GestionDeProductos(TreeSet<Producto> productos) {
+        this.productos=productos;
         initComponents();
-        
+//        llenarCombo();
+
     }
 
     /**
@@ -171,7 +180,9 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-
+//    private void llenarCombo(){
+//        
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;

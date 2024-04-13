@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import entidades.Producto;
+import java.util.TreeSet;
 import javax.swing.JInternalFrame;
 
 /**
@@ -11,6 +13,7 @@ import javax.swing.JInternalFrame;
  * @author Hollmann
  */
 public class MenuPrincipal extends javax.swing.JFrame {
+    private TreeSet<Producto> productos=new TreeSet<>();
 
     /**
      * Creates new form menuPrincipal
@@ -113,14 +116,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGestionActionPerformed
-        GestionDeProductos ventana = new GestionDeProductos();
+        GestionDeProductos ventana = new GestionDeProductos(productos);
         dibujarVentana(ventana);
 
 
     }//GEN-LAST:event_jmGestionActionPerformed
 
     private void jmNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNombreActionPerformed
-        ConsultaPorNombre ventana = new ConsultaPorNombre();
+        ConsultaPorNombre ventana = new ConsultaPorNombre(productos);
         dibujarVentana(ventana);
     }//GEN-LAST:event_jmNombreActionPerformed
 
@@ -129,12 +132,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jAdministracionActionPerformed
 
     private void jmRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRubroActionPerformed
-        ConsultasPorRubro ventana = new ConsultasPorRubro();
+        ConsultasPorRubro ventana = new ConsultasPorRubro(productos);
         dibujarVentana(ventana);
     }//GEN-LAST:event_jmRubroActionPerformed
 
     private void jmPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrecioActionPerformed
-        ConsultaPorPrecio ventana = new ConsultaPorPrecio();
+        ConsultaPorPrecio ventana = new ConsultaPorPrecio(productos);
         dibujarVentana(ventana);
     }//GEN-LAST:event_jmPrecioActionPerformed
 
