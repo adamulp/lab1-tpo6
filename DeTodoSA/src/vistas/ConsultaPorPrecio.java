@@ -4,17 +4,23 @@
  */
 package vistas;
 
+import entidades.Producto;
+import java.util.TreeSet;
+
 /**
  *
  * @author Hollmann
  */
 public class ConsultaPorPrecio extends javax.swing.JInternalFrame {
+    private TreeSet<Producto> productos;
 
     /**
      * Creates new form consultaPorPrecio
      */
-    public ConsultaPorPrecio() {
+    public ConsultaPorPrecio(TreeSet<Producto> productos) {
+        this.productos=productos;
         initComponents();
+//        armarCabecera();
     }
 
     /**
@@ -110,6 +116,9 @@ public class ConsultaPorPrecio extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//    private void armarCabecera(){
+//    
+//    }
     private void jtPrecioMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPrecioMinActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtPrecioMinActionPerformed

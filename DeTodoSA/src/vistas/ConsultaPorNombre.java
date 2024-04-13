@@ -4,17 +4,23 @@
  */
 package vistas;
 
+import entidades.Producto;
+import java.util.TreeSet;
+
 /**
  *
  * @author Hollmann
  */
 public class ConsultaPorNombre extends javax.swing.JInternalFrame {
+    private TreeSet<Producto> productos;
 
     /**
      * Creates new form consultaPorNombre
      */
-    public ConsultaPorNombre() {
+    public ConsultaPorNombre(TreeSet<Producto> productos) {
+        this.productos=productos;
         initComponents();
+//        armarCabecera();
     }
 
     /**
@@ -86,7 +92,9 @@ public class ConsultaPorNombre extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+//    private void armarCabecera(){
+//    
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
