@@ -72,6 +72,24 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Codigo");
 
+        jtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtCodigoKeyTyped(evt);
+            }
+        });
+
+        jtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtPrecioKeyTyped(evt);
+            }
+        });
+
+        jtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtStockKeyTyped(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Gestion de productos");
 
@@ -234,16 +252,6 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         Rubro rubro;
         int stock;
         
-        if(esEntero(jtCodigo.getText())){
-            codigo = Integer.parseInt(jtCodigo.getText());
-        }else {
-        
-            JOptionPane.showMessageDialog(this,
-                    "Ingresá un código del producto");
-            jtCodigo.requestFocus();
-            return;
-        }
-        
         if(!jtDescripcion.equals("")){
             descripcion = jtDescripcion.getText();
         }else{
@@ -253,10 +261,11 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             return;
         }
         
-        if(esDecimal(jtPrecio.getText()) ||
-           esEntero(jtPrecio.getText())
+        String strDecimal = jtPrecio.getText().replace(',', '.');
+        if(esDecimal(strDecimal) ||
+           esEntero(strDecimal)
           ){
-            precio = Double.parseDouble(jtPrecio.getText());
+            precio = Double.parseDouble(strDecimal);
         }else{
             JOptionPane.showMessageDialog(this,
                     "Ingresá un precio");
@@ -282,8 +291,45 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             jtStock.requestFocus();
             return;
         }
+        Producto producto;
+        if(esEntero(jtCodigo.getText())){
+            codigo = Integer.parseInt(jtCodigo.getText());
+            producto = new Producto(codigo, descripcion, precio, stock, rubro);
+            
+            if(getProducto(codigo) != null){
+                int opcion=JOptionPane.showConfirmDialog(this,
+                        "Ya existe un producto con ese código,"
+                                + "¿querés actualizarlo?",
+                        "Confirmación",JOptionPane.YES_NO_OPTION);
+                if(opcion==JOptionPane.YES_OPTION){
+                    if(actualizarProducto(codigo, producto)){
+                        JOptionPane.showMessageDialog(this,
+                        "Producto actualizado");
+                        limpiarCampos();
+                    }else{
+                        JOptionPane.showMessageDialog(this,
+                        "No se pudo actualizar el producto, "
+                                + "probá con otro código talvez");
+                    }
+                    return;
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                        "Ingresá otro código para el producto");
+                    jtCodigo.setText("");
+                    jtCodigo.requestFocus();
+                    return;
+                }
+            }
+            
+        }else {
         
-        if(agregarProducto(new Producto(codigo, descripcion, precio, stock, rubro))){
+            JOptionPane.showMessageDialog(this,
+                    "Ingresá un código del producto");
+            jtCodigo.requestFocus();
+            return;
+        }
+        
+        if(agregarProducto(producto)){
             JOptionPane.showMessageDialog(this,
                     "Producto agregado!");
             limpiarCampos();
@@ -291,7 +337,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         }
         
         JOptionPane.showMessageDialog(this,
-                    "Parece que el producto ya existe u olvidaste llenar algo");
+                    "No se pudo agregar el producto");
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -307,6 +353,41 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                 );
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void jtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCodigoKeyTyped
+        enteroKeyTyped(evt);
+    }//GEN-LAST:event_jtCodigoKeyTyped
+
+    private void jtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPrecioKeyTyped
+        char caracter = evt.getKeyChar();
+        char separadorDecimal = ',';
+        String txtActual;
+
+        if (caracter == ',' ||
+            caracter == '.'
+        ){
+            txtActual = jtPrecio.getText();
+            for (int i = 0; i < txtActual.length(); i++) {
+                if (txtActual.charAt(i) == ',' ||
+                    txtActual.charAt(i) == '.'
+                ){
+                    evt.consume();
+                    return;
+                }
+            }
+            return;
+        }
+        enteroKeyTyped(evt);
+    }//GEN-LAST:event_jtPrecioKeyTyped
+
+    private void jtStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtStockKeyTyped
+        enteroKeyTyped(evt);
+    }//GEN-LAST:event_jtStockKeyTyped
+    private void enteroKeyTyped(java.awt.event.KeyEvent evt) {
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }
     private void llenarCombo(){
         Rubro comestible=new Rubro(1,"Comestible");
         Rubro limpieza=new Rubro(2,"Limpieza");
@@ -369,6 +450,9 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }
     
     private boolean agregarProducto(Producto producto){
+        if(producto == null){
+            return false;
+        }
         return productos.add(producto);
     }
     
@@ -383,6 +467,17 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             return false;
         }
         return quitarProducto(producto);
+    }
+    
+    private boolean actualizarProducto(int codigo, Producto producto){
+        if(producto == null){
+//            System.out.println("El producto es nulo");
+            return false;
+        }
+        if(quitarProducto(codigo)){
+            return agregarProducto(producto);
+        }
+        return false;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
