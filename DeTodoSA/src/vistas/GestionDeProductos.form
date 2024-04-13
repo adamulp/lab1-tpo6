@@ -147,12 +147,21 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtCodigo">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtCodigoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtDescripcion">
     </Component>
     <Component class="javax.swing.JTextField" name="jtPrecio">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtPrecioKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtStock">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtStockKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="jcRubro">
       <Properties>
