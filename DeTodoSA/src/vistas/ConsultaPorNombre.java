@@ -6,21 +6,26 @@ package vistas;
 
 import entidades.Producto;
 import java.util.TreeSet;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Hollmann
  */
 public class ConsultaPorNombre extends javax.swing.JInternalFrame {
+
     private TreeSet<Producto> productos;
+    private DefaultTableModel modelo = new DefaultTableModel();
 
     /**
      * Creates new form consultaPorNombre
      */
     public ConsultaPorNombre(TreeSet<Producto> productos) {
-        this.productos=productos;
         initComponents();
-//        armarCabecera();
+        this.productos = productos;
+        armarCabecera();
+
     }
 
     /**
@@ -57,6 +62,12 @@ public class ConsultaPorNombre extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtListado);
 
+        jtNombreProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtNombreProductoKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,9 +103,81 @@ public class ConsultaPorNombre extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    private void armarCabecera(){
-//    
+    private void jtNombreProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreProductoKeyReleased
+        // TODO add your handling code here:
+        borrarLista();
+        buscarXCaracterPrimerCoincidencia(jtNombreProducto.getText());
+
+
+
+    }//GEN-LAST:event_jtNombreProductoKeyReleased
+
+    private void armarCabecera() {
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        jtListado.setModel(modelo);
+    }
+
+    public void borrarLista() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+
+    }
+
+//    public Vector<Producto> buscarCoincidencias(String descripcion) {
+//        int c = 0;
+//        Vector<Producto> vector = new Vector<>();
+//        Producto producto = buscarXCaracterPrimerCoincidencia(descripcion);
+//        if (producto == null) {
+//            return null;
+//        }
+//        vector.add(producto);
+//        c++;
+//        for (Producto p2 : productos) {
+//            producto = buscarXCaracter(descripcion, c);
+//            if (producto == null) {
+//                return vector;
+//            }
+//            vector.add(producto);
+//            c++;
+//        }
+//        return null;
 //    }
+
+    public Producto buscarXCaracterPrimerCoincidencia(String descripcion) {
+        for (Producto producto : productos) {
+            if (producto.getDescripcion().toLowerCase().startsWith(descripcion)) {
+                cargarRenglos(producto); //LLamo al metodo cargar Renglones para crear una fila nueva cada vez que encuentre similitudes
+            }
+        }
+        return null;
+    }
+
+//    public Producto buscarXCaracter(String descripcion, int coincidencia) {
+//        int i = 0;
+//        for (Producto producto : productos) {
+//            if (producto.getDescripcion().toLowerCase().startsWith(descripcion)) {
+//                if (i > coincidencia) {
+//                    return producto;
+//                }
+//            }
+//            i++;
+//        }
+//        return null;
+//    }
+
+    public void cargarRenglos(Producto producto) {
+        Vector fila = new Vector();
+        fila.add(producto.getCodigo());
+        fila.add(producto.getDescripcion());
+        fila.add(producto.getPrecio());
+        fila.add(producto.getStock());
+        modelo.addRow(fila);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
