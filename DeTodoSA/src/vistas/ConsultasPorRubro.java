@@ -7,6 +7,8 @@ package vistas;
 import entidades.Producto;
 import entidades.Rubro;
 import java.util.TreeSet;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,15 +16,18 @@ import java.util.TreeSet;
  */
 public class ConsultasPorRubro extends javax.swing.JInternalFrame {
     private TreeSet<Producto> productos;
+    private DefaultTableModel modelo = new DefaultTableModel();
 
+    
+    //----------------------------------CONSTRUCTOR-------------------------------------
     /**
      * Creates new form consultasPorRubro
      */
     public ConsultasPorRubro(TreeSet<Producto> productos) {
         this.productos=productos;
         initComponents();
-//        llenarCombo();
-//        armarCabecera();
+        llenarCombo();
+        armarCabecera();
     }
 
     /**
@@ -46,8 +51,12 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Elija rubro:");
 
-        jcRubro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comestible", "Limpieza", "Perfumeria" }));
         jcRubro.setSelectedIndex(-1);
+        jcRubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcRubroActionPerformed(evt);
+            }
+        });
 
         jtListadoPrecios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,6 +107,69 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+//------------------------------------------------------------------------MÉTODOS-------------------------------------------------------------------------------------------------------------------------
+
+//MÉTODO DE ACCIÓN AL HACER CLICK AL COMBO BOX
+    private void jcRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcRubroActionPerformed
+        // TODO add your handling code here:
+        borrarLista();
+        Rubro rubro = (Rubro) jcRubro.getSelectedItem();  //SE CASTEA A "RUBRO" PORQUE EL "getSelectedItem" DEVUELVE UN OBJETO.
+        
+        for (Producto prod: productos) {
+            
+            if(rubro.equals(prod.getRubro() ) ) { //LOS COMPARAMOS ASÍ YA QUE TENEMOS EL EQUALS SOBREESCRIBIDO EN LA CLASE "Rubro"
+                
+                Vector<Object> renglon = new Vector<>();
+                renglon.add(prod.getCodigo());
+                renglon.add(prod.getDescripcion());
+                renglon.add(prod.getPrecio());
+                renglon.add(prod.getStock());
+                
+                modelo.addRow(renglon);
+            }
+            
+        }      
+        
+    }//GEN-LAST:event_jcRubroActionPerformed
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    //MÉTODO PARA ASIGNARLE NOMBRES/ÍNDICES AL COMBO BOX (SE INICIALIZA EN EL CONSTRUCTOR)
+    private void llenarCombo() {
+        Rubro comestible = new Rubro(1, "Comestible");
+        Rubro limpieza = new Rubro(2, "Limpieza");
+        Rubro perfumeria = new Rubro(3, "Perfumeria");
+
+        jcRubro.addItem(comestible);
+        jcRubro.addItem(limpieza);
+        jcRubro.addItem(perfumeria);
+
+    }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
+    
+    //MÉTODO PARA ARMAR CABECERA DE UNA TABLA POR CÓDIGO (SE INICIALIZA EN EL CONSTRUCTOR)
+    private void armarCabecera() {
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        jtListadoPrecios.setModel(modelo);
+    }
+        
+ //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    
+    //MÉTODO PARA LIMPIAR LA TABLA(BORRAR FILAS)
+    public void borrarLista() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+
+    }
+    
 //    private void llenarCombo(){
 //        
 //    }
@@ -108,7 +180,7 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> jcRubro;
+    private javax.swing.JComboBox<Rubro> jcRubro;
     private javax.swing.JTable jtListadoPrecios;
     // End of variables declaration//GEN-END:variables
 }
