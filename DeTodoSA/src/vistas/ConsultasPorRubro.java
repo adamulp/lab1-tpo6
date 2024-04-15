@@ -28,6 +28,7 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
         initComponents();
         llenarCombo();
         armarCabecera();
+       limpiarCampo();
     }
 
     /**
@@ -116,7 +117,9 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
         borrarLista();
         Rubro rubro = (Rubro) jcRubro.getSelectedItem();  //SE CASTEA A "RUBRO" PORQUE EL "getSelectedItem" DEVUELVE UN OBJETO.
         
-        for (Producto prod: productos) {
+        if (rubro != null){
+            
+            for (Producto prod: productos) {
             
             if(rubro.equals(prod.getRubro() ) ) { //LOS COMPARAMOS ASÍ YA QUE TENEMOS EL EQUALS SOBREESCRIBIDO EN LA CLASE "Rubro"
                 
@@ -130,6 +133,8 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
             }
             
         }      
+        }
+        
         
     }//GEN-LAST:event_jcRubroActionPerformed
 
@@ -137,20 +142,22 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
     
     //MÉTODO PARA ASIGNARLE NOMBRES/ÍNDICES AL COMBO BOX (SE INICIALIZA EN EL CONSTRUCTOR)
     private void llenarCombo() {
-        Rubro vacio = new Rubro(1, "seleccione");
         Rubro comestible = new Rubro(2, "Comestible");
         Rubro limpieza = new Rubro(3, "Limpieza");
         Rubro perfumeria = new Rubro(4, "Perfumeria");
 
-        jcRubro.addItem(vacio);
         jcRubro.addItem(comestible);
         jcRubro.addItem(limpieza);
         jcRubro.addItem(perfumeria);
 
     }
-    private void limpiarCampo(){
-        jcRubro.setSelectedIndex(-1);
+
+    private void limpiarCampo() {
+        if (jcRubro != null){
+             jcRubro.setSelectedIndex(-1);
+        }  
     }
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
     
