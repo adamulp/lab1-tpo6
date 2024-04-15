@@ -13,16 +13,17 @@ import javax.swing.JInternalFrame;
  * @author Hollmann
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-    private TreeSet<Producto> productos=new TreeSet<>();
+    private TreeSet<Producto> productos;
 
     /**
      * Creates new form menuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
+        productos=new TreeSet<>();
 
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jAdministracion = new javax.swing.JMenu();
         jmGestion = new javax.swing.JMenuItem();
+        jmCSV = new javax.swing.JMenuItem();
         Consultas = new javax.swing.JMenu();
         jmRubro = new javax.swing.JMenuItem();
         jmNombre = new javax.swing.JMenuItem();
@@ -68,6 +70,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jAdministracion.add(jmGestion);
+
+        jmCSV.setText("Productos CSV");
+        jmCSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCSVActionPerformed(evt);
+            }
+        });
+        jAdministracion.add(jmCSV);
 
         jMenuBar1.add(jAdministracion);
 
@@ -141,10 +151,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         dibujarVentana(ventana);
     }//GEN-LAST:event_jmPrecioActionPerformed
 
+    private void jmCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCSVActionPerformed
+        ProductosCSV ventana = new ProductosCSV(productos);
+        dibujarVentana(ventana);
+    }//GEN-LAST:event_jmCSVActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -176,11 +192,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+       java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
                 new MenuPrincipal().setVisible(true);
             }
         });
+       
     }
 
     private void dibujarVentana(JInternalFrame ventana) {
@@ -195,6 +212,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jAdministracion;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jmCSV;
     private javax.swing.JMenuItem jmGestion;
     private javax.swing.JMenuItem jmNombre;
     private javax.swing.JMenuItem jmPrecio;
