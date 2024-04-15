@@ -43,6 +43,10 @@ public class ConsultaPorNombre extends javax.swing.JInternalFrame {
         jtListado = new javax.swing.JTable();
         jtNombreProducto = new javax.swing.JTextField();
 
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Listado de productos por nombre");
 
