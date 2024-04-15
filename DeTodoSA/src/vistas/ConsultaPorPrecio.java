@@ -145,6 +145,10 @@ public class ConsultaPorPrecio extends javax.swing.JInternalFrame {
         String txPrecioMin = jtPrecioMin.getText();
         String txPrecioMax = jtPrecioMax.getText();
 
+        if (txPrecioMin.isEmpty() || txPrecioMax.isEmpty()) {
+            return null;
+        }
+        
         // CONVIERTE LOS VALORES RECIBIDOS A NUMEROS
         double precioMin;
         double precioMax;
