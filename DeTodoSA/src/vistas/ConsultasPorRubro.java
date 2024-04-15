@@ -148,6 +148,9 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
         jcRubro.addItem(perfumeria);
 
     }
+    private void limpiarCampo(){
+        jcRubro.setSelectedIndex(-1);
+    }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
     
