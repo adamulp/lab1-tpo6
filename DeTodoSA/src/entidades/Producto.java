@@ -19,6 +19,11 @@ public class Producto implements Comparable<Producto>{
     
 
     public Producto() {
+//        codigo = -1;
+//        descripcion = "";
+//        precio = 0.0;
+//        stock = 0;
+//        rubro = new Rubro();
     }
 
     public Producto(int codigo, String descripcion, double precio, int stock, Rubro rubro) {

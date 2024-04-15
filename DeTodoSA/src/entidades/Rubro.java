@@ -15,6 +15,8 @@ public class Rubro {
     private String nombre;
 
     public Rubro() {
+        codigo = -1;
+        nombre = "";
     }
 
     public Rubro(int codigo, String nombre) {

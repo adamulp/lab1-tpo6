@@ -411,7 +411,6 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }
     
     private boolean esEntero(String nro){
-    
         Pattern patron=Pattern.compile("^\\d+$");
         Matcher m=patron.matcher(nro);
         return m.matches();

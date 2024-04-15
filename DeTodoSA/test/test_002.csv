@@ -1,0 +1,41 @@
+Código, Rubro, Descripción, Precio, Stock
+1001, Comestible, Arroz, 1500.50, 50
+1002, Comestible, Azúcar, 1200.75, 100
+1003, Limpieza, Detergente, 2500.25, 30
+1004, Perfumeria, Shampoo, 3000.80, 40
+1005, Comestible, Fideos, 1800.60, 60
+1006, Perfumeria, Perfume, 6500.90, 20
+1007, Limpieza, Jabón, 1800.70, 80
+1008, Comestible, Leche, 2200.25, 70
+1009, Limpieza, Limpiavidrios, 1200.45, 40
+1010, Perfumeria, Crema Facial, 3800.20, 35
+1011, Comestible, Aceite de Oliva, 2000.30, 55
+1012, Comestible, Avena Instantánea, 1600.55, 45
+1013, Limpieza, Lavandina, 1900.40, 65
+1014, Limpieza, Lustramuebles, 1700.65, 25
+1015, Perfumeria, Desodorante, 2800.70, 30
+1016, Perfumeria, Esmalte de uñas, 4200.35, 15
+1017, Comestible, Queso Gouda, 3000.50, 50
+1018, Comestible, Yogur Natural, 2400, 40
+1019, Comestible, Yogur de Frutas, 2600.75, 30
+1020, Comestible, Yogur Griego, 2900.60, 20
+1021, Comestible, Aceitunas Verdes, 1700, 35
+1022, Comestible, Aceitunas Negras, 1800.80, 25
+1023, Comestible, Aceitunas Rellenas, 1900.65, 15
+1024, Comestible, Papas Fritas, 2100.55, 50
+1025, Comestible, Papas al Horno, 2300.40, 40
+1026, Comestible, Papas Rústicas, 2500.50, 30
+1027, Comestible, Puré de Papas, 2700, 20
+1028, Comestible, Puré de Calabaza, 2900.75, 15
+1029, Comestible, Puré de Zanahoria, 3100.60, 10
+1030, Comestible, Galletas de Chocolate, 2200.35, 45
+1031, Comestible, Galletas de Vainilla, 2400.45, 35
+1032, Comestible, Galletas de Avena, 2600.55, 25
+1033, Comestible, Queso Mozzarella, 2800.65, 20
+1034, Comestible, Queso Parmesano, 3000.75, 15
+1035, Comestible, Queso Roquefort, 3200.85, 10
+1036, Comestible, Manteca, 2400.80, 30
+1037, Comestible, Margarina, 2600.90, 25
+1038, Comestible, Mantequilla, 2800, 20
+1039, Comestible, Huevos, 3000.50, 50
+1040, Comestible, Huevos de Codorniz, 3200.75, 40
