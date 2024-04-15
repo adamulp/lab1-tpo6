@@ -137,7 +137,7 @@ public class ConsultasPorRubro extends javax.swing.JInternalFrame {
     
     //MÉTODO PARA ASIGNARLE NOMBRES/ÍNDICES AL COMBO BOX (SE INICIALIZA EN EL CONSTRUCTOR)
     private void llenarCombo() {
-        Rubro vacio = new Rubro(1, "none");
+        Rubro vacio = new Rubro(1, "seleccione");
         Rubro comestible = new Rubro(2, "Comestible");
         Rubro limpieza = new Rubro(3, "Limpieza");
         Rubro perfumeria = new Rubro(4, "Perfumeria");
