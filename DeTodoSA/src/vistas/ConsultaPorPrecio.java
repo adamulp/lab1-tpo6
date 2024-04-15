@@ -5,7 +5,11 @@
 package vistas;
 
 import entidades.Producto;
+import entidades.Rubro;
 import java.util.TreeSet;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,14 +17,14 @@ import java.util.TreeSet;
  */
 public class ConsultaPorPrecio extends javax.swing.JInternalFrame {
     private TreeSet<Producto> productos;
-
+     private DefaultTableModel modelo = new DefaultTableModel();
     /**
      * Creates new form consultaPorPrecio
      */
     public ConsultaPorPrecio(TreeSet<Producto> productos) {
         this.productos=productos;
         initComponents();
-//        armarCabecera();
+        armarCabecera();
     }
 
     /**
@@ -39,6 +43,10 @@ public class ConsultaPorPrecio extends javax.swing.JInternalFrame {
         jtPrecioMin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jtPrecioMax = new javax.swing.JTextField();
+
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Listado de productos por precio");
@@ -64,12 +72,22 @@ public class ConsultaPorPrecio extends javax.swing.JInternalFrame {
                 jtPrecioMinActionPerformed(evt);
             }
         });
+        jtPrecioMin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtPrecioMinKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Y");
 
         jtPrecioMax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtPrecioMaxActionPerformed(evt);
+            }
+        });
+        jtPrecioMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtPrecioMaxKeyReleased(evt);
             }
         });
 
@@ -120,12 +138,77 @@ public class ConsultaPorPrecio extends javax.swing.JInternalFrame {
 //    
 //    }
     private void jtPrecioMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPrecioMinActionPerformed
-        // TODO add your handling code here:
+   
     }//GEN-LAST:event_jtPrecioMinActionPerformed
 
+    public Producto buscarPorPrecio(){
+        String txPrecioMin = jtPrecioMin.getText();
+        String txPrecioMax = jtPrecioMax.getText();
+
+        // CONVIERTE LOS VALORES RECIBIDOS A NUMEROS
+        double precioMin;
+        double precioMax;
+        try {
+            precioMin = Double.parseDouble(txPrecioMin);
+            precioMax = Double.parseDouble(txPrecioMax);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos para el precio mínimo y máximo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        // LIMPIA LA TABLA ANTES DE AGREGAR NUEVOS RESULTADOS
+        borrarLista();
+
+        // BUCLE QUE BUSCA LOS PRODUCTOS DENTRO DEL RANGO
+        for (Producto prod : productos) {
+            if (prod.getPrecio() >= precioMin && prod.getPrecio() <= precioMax) {
+                cargarRenglos(prod);
+            }
+        }
+        return null;
+    }
+    
+    
+      public void cargarRenglos(Producto producto) {
+        Vector fila = new Vector();
+        fila.add(producto.getCodigo());
+        fila.add(producto.getDescripcion());
+        fila.add(producto.getPrecio());
+        fila.add(producto.getStock());
+        modelo.addRow(fila);
+    }
+    
     private void jtPrecioMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPrecioMaxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jtPrecioMaxActionPerformed
+
+    private void jtPrecioMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPrecioMinKeyReleased
+        borrarLista();
+        buscarPorPrecio();
+      
+    }//GEN-LAST:event_jtPrecioMinKeyReleased
+
+    private void jtPrecioMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPrecioMaxKeyReleased
+       borrarLista();
+       buscarPorPrecio();
+    }//GEN-LAST:event_jtPrecioMaxKeyReleased
+
+      private void armarCabecera() {
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        jtListado.setModel(modelo);
+    }
+      
+        public void borrarLista() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+
+    }
+      
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
