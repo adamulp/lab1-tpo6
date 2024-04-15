@@ -107,8 +107,10 @@ public class ConsultaPorNombre extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         borrarLista();
         buscarXCaracterPrimerCoincidencia(jtNombreProducto.getText());
-
-
+        if (jtNombreProducto.getText().isEmpty()) {
+            borrarLista();
+        }
+        
 
     }//GEN-LAST:event_jtNombreProductoKeyReleased
 
